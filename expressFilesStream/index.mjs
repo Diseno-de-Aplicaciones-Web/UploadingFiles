@@ -6,11 +6,18 @@ const app = new Express()
 // como un buffer.
 // app.use(Express.text())
 
-app.post("/",(req, res)=>{
-    const file = fs.createWriteStream("./expressFilesStream/salida.txt")
+
+app.use("/images/", Express.static("./uploads/"))
+
+app.post("/upload/",(req, res)=>{
+    const imgId = Date.now()
+    const file = fs.createWriteStream(`./uploads/${imgId}.jpg`)
+    console.log(imgId);
     file.on("close", ()=>{ console.log("Done") })
+    req.on("data",(chunk)=>{console.log("*->")})
     req.pipe(file)
     res.sendStatus(200)
+    console.log(fs.readdirSync("./uploads/"))
 })
 
 app.listen(3000)
