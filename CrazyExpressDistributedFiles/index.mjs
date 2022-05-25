@@ -31,7 +31,6 @@ const mockedDB = [
 ]
 
 const app = new Express()
-//app.use(Express.raw())
 
 app.get("/images/", (req,res)=>{
     res.send(
@@ -69,7 +68,7 @@ app.post("/upload/:articleId", async (req, res)=>{
             .on("data",chunk=>console.log(`${bytesCounter+=chunk.length} bytes...`))
             .on("end",()=>console.log(`Done: ${bytesCounter} bytes.`))
 
-        const s3Response = s3.upload({
+        const s3Response = s3.upload({ //s3.putObject()
             Body: req,
             Key: key,
             ContentType: req.headers['content-type'],
