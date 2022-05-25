@@ -58,18 +58,26 @@ app.get("/articles/",(req, res)=>{
 
 app.post("/upload/:articleId", async (req, res)=>{
     try {
+
         const key = Date.now().toString()
         let bytesCounter = 0
-        console.log(`Uploading file ${key} - ${req.headers['content-type']} ...`)
-        req.on("data",chunk=>console.log(`${bytesCounter+=chunk.length} bytes...`))
-        req.on("end",()=>console.log(`Done: ${bytesCounter} bytes.`))
+        let s3ResponseHeaders = null
 
-        const data = await s3.upload({
+        console.log(`Uploading file ${key} - ${req.headers['content-type']} - ${req.headers['content-length']}...`)
+
+        req
+            .on("data",chunk=>console.log(`${bytesCounter+=chunk.length} bytes...`))
+            .on("end",()=>console.log(`Done: ${bytesCounter} bytes.`))
+
+        const s3Response = s3.upload({
             Body: req,
             Key: key,
             ContentType: req.headers['content-type'],
+            ContentLength: req.headers['content-length'],
             Bucket: process.env.S3_BUCKET
-        }).promise()
+        })
+
+        const data = await s3Response.promise()
 
         const headers = await s3.headObject({
             Key: key,
@@ -79,9 +87,12 @@ app.post("/upload/:articleId", async (req, res)=>{
         const articleIdx = mockedDB.findIndex(
             item => item.id.toString() === req.params.articleId
         )
+
         mockedDB[articleIdx].imageKey = data.Key
         mockedDB[articleIdx].imageIpfsCid = headers.Metadata.cid
+
         res.json({data, headers})
+        
     } catch (err) {
         console.error(err)
         res.sendStatus(500)
