@@ -24,7 +24,7 @@ const imageDataElement = document.querySelector("p")
 /**
  * Se ejecuta cuando el usuario selecciona un fichero.
  */
-function selectFileHandler () {
+async function selectFileHandler () {
 
     // Obtiene una URL válida para el contenido del fichero
     const encodedFile = URL.createObjectURL(input.files[0])
@@ -46,6 +46,14 @@ function selectFileHandler () {
         is image: ${imageData.primaryMimeType === "image" ? "Yes" : "No"}
         is valid: ${imageData.validHtmlImageIdx > 0 ? "Yes" : "No"}
     `
+    const response = await fetch("http://localhost:3000/upload/1653414926644", {
+        method: "POST",
+        body: input.files[0]
+    })
+
+    const data = await response.json()
+
+    console.log(data);
 }
 
 /**
