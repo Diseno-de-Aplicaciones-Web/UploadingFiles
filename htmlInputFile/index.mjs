@@ -17,7 +17,7 @@ const imageData = {};
 
 // Obtenemos acceso en el DOM a los elementos HTML
 // que deseamos controlar desde este script.
-const input = document.querySelector("input");
+const input = document.querySelector("input")
 const image = document.querySelector("img")
 const imageDataElement = document.querySelector("p")
 
