@@ -12,7 +12,7 @@ const s3 = new aws.S3({
 
 class Article {
     constructor({description, pvp}) {
-        this.id = Date.now()
+        this.id = Date.now().toString()
         this.description = description
         this.pvp = pvp
     }
@@ -71,7 +71,7 @@ app.post("/upload/:articleId", async (req, res)=>{
         const data = await s3Response.promise()
 
         const articleIdx = mockedDB.findIndex(
-            item => item.id.toString() === req.params.articleId
+            item => item.id === req.params.articleId
         )
 
         mockedDB[articleIdx].imageKey = data.Key
