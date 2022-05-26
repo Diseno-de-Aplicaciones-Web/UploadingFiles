@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="index.mjs" type="module"></script>
+    <title>Document</title>
+</head>
+<body>
+    <form id="singlePhoto" method="POST">
+        <h2>Upload one photo</h2>
+        <input type="text" name="description">
+        <input type="number" name="pvp">
+        <input type="file" name="photo">
+        <input type="submit" value="Enviar">
+    </form>
+    <form action="/uploadManyPhotos/" method="post">
+        <h2>Upload many photos</h2>
+    </form>
+</body>
+</html>
