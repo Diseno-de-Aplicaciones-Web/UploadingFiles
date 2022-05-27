@@ -8,15 +8,21 @@
     <title>Document</title>
 </head>
 <body>
-    <form id="singlePhoto" method="POST">
+    <form id="singlePhoto">
         <h2>Upload one photo</h2>
         <input type="text" name="description">
         <input type="number" name="pvp">
         <input type="file" name="photo">
         <input type="submit" value="Enviar">
     </form>
-    <form action="/uploadManyPhotos/" method="post">
+    <form id="multiplePhotos" >
         <h2>Upload many photos</h2>
+        <input type="text" name="description">
+        <input type="number" name="pvp">
+        <!-- "multiple" property enable file inputs for 
+        select multiple -->
+        <input type="file" name="photos" multiple>
+        <input type="submit" value="Enviar">
     </form>
 </body>
 </html>

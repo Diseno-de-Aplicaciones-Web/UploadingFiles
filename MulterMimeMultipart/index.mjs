@@ -13,11 +13,10 @@ const app = new Express()
 app.post('/uploadOnePhoto/',upload.single('photo'),(req, res)=>{
     console.log("File:", req.file)
     console.log("Body:", req.body)
-    
     res.sendStatus(201)
 })
 
-app.post('/uploadManyPhotos/',upload.array('fotos', 10),(req, res)=>{
+app.post('/uploadManyPhotos/',upload.array('photos', 10),(req, res)=>{
     console.log("Files:", req.files.length)
     console.log("Body:", req.body)
     res.sendStatus(201)

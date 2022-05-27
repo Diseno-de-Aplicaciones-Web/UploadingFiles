@@ -1,6 +1,7 @@
-const form = document.querySelector("form#singlePhoto")
+const formSingleFile = document.querySelector("form#singlePhoto")
+const formMultipleFiles = document.querySelector("form#multiplePhotos")
 
-function submitFormHandler (event) {
+function submitOneFileFormHandler (event) {
     event.preventDefault()
     const formData = new FormData(event.target)
     fetch(
@@ -12,4 +13,17 @@ function submitFormHandler (event) {
     )
 }
 
-form.addEventListener("submit", submitFormHandler)
+function submitManyFilesFormHandler (event) {
+    event.preventDefault()
+    const formData = new FormData(event.target)
+    fetch(
+        'http://localhost:3000/uploadManyPhotos/',
+        {
+            method: "POST",
+            body: formData
+        }
+    )
+}
+
+formSingleFile.addEventListener("submit", submitOneFileFormHandler)
+formMultipleFiles.addEventListener("submit", submitManyFilesFormHandler)
