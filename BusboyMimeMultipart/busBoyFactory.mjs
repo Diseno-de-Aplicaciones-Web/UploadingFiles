@@ -6,7 +6,7 @@ import busboy from 'busboy'
  * Provides a Express middleware for managing mime-multipart requests.
  * - File fields are streamed to fileHandler.
  * - String fields are appended to req.body.
- * - Metadata about fields and files are appended to req.bodyMeta
+ * - Metadata about fields and files are appended to req.meta
  * @param fileHandler: function( file: readableStream, mimeType: string)  
  * @returns function(req: Express.Request, res: Express.Response, next: Express.Middleware)
  */
